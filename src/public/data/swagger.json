@@ -1,0 +1,376 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Budgeting app with PHP + slim v4, tailwind css, nginx, docker etc. For codeacademy.lt full stack course final project.",
+    "version": "1.0.0",
+    "title": "Budgeting App",
+    "contact": {
+      "email": "matas.sungaila@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "entry",
+      "description": "Access to budget entries."
+    },
+    {
+      "name": "type",
+      "description": "Access to budget entry types."
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/entries": {
+      "get": {
+        "tags": [
+          "entry"
+        ],
+        "summary": "Get latest budget entries",
+        "description": "",
+        "operationId": "getEntries",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Entry"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "entry"
+        ],
+        "summary": "Create a new entry",
+        "operationId": "createEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Entry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Entry"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "entry"
+        ],
+        "summary": "Update a single entry.",
+        "operationId": "updateEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Entry"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Entry"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      }
+    },
+    "/entries/{entryId}": {
+      "get": {
+        "tags": [
+          "entry"
+        ],
+        "summary": "Find entry by ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "entryId",
+            "in": "path",
+            "description": "ID of entry that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Entry"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "entry"
+        ],
+        "summary": "Delete an entry by ID.",
+        "operationId": "deleteEntry",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "entryId",
+            "in": "path",
+            "description": "ID of the entry that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      }
+    },
+    "/types": {
+      "get": {
+        "tags": [
+          "type"
+        ],
+        "summary": "Get all types.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Type"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "type"
+        ],
+        "summary": "Create a type.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Type"
+            }
+          },
+          "400": {
+            "description": "Invalid data supplied"
+          }
+        }
+      }
+    },
+    "/types/{id}": {
+      "get": {
+        "tags": [
+          "type"
+        ],
+        "summary": "Get type by id",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The name that needs to be fetched.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Type"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "type"
+        ],
+        "summary": "Updated user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "name that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Type"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "type"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id that needs to be deleted",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "ID not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Entry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "Type": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

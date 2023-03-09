@@ -20,6 +20,8 @@ ini_set('display_errors', ($displayErrorDetails ? 1 : 0));
 
 $container = new Container();
 
+AppFactory::setContainer($container);
+
 $app = AppFactory::create();
 
 $callableResolver = $app->getCallableResolver();
